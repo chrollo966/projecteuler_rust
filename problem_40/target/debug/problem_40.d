@@ -1,0 +1,1 @@
+/Users/chrollo/developments/projecteuler/problem_40/target/debug/problem_40: /Users/chrollo/developments/projecteuler/problem_40/src/lib.rs /Users/chrollo/developments/projecteuler/problem_40/src/main.rs
