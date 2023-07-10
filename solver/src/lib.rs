@@ -1,3 +1,5 @@
+#[allow(unused_imports, dead_code)]
+
 extern crate permutohedron;
 
 pub mod problem_41 {
@@ -33,14 +35,46 @@ pub mod problem_41 {
 
 }
 
+pub mod problem_42 {
+    pub fn triangle_number(n: usize) -> usize {
+        n * (n + 1) / 2
+    }
+
+    pub fn alphabet_to_number(c: char) -> u8 {
+        match c {
+            'A'..='Z' => c as u8 - 'A' as u8 + 1,
+            'a'..='z' => c as u8 - 'a' as u8 + 1,
+            _ => panic!("Alphabet only"),
+        }
+    }
+
+    pub fn is_triangle_word(word: &str) -> bool {
+        let score = word.chars().map(alphabet_to_number).sum::<u8>();
+
+        match score {
+            1 => true,
+            _ => {
+                let mut n = 1;
+                let mut triangle = triangle_number(n);
+                while triangle < score as usize {
+                    n += 1;
+                    triangle = triangle_number(n);
+                }
+                triangle == score as usize
+            }
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
-    use super::problem_41::*;
+    use super::problem_42::*;
 
     #[test]
-    fn test_pandigital_primes() {
-        let result = pandigital_primes(4);
-        let expected = vec![4231, 4213, 4132, 4123, 3413, 3241, 2341, 2314, 2143, 2134];
+    fn test_alph2num() {
+        let result = alphabet_to_number('A');
+        let expected = 1;
+
         assert_eq!(result, expected);
     }
 }
