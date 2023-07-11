@@ -68,9 +68,19 @@ pub mod helpers {
         n as u64 * (2 * n as u64 - 1)
     }
 
+    pub fn is_perfect_square(n: u64) -> bool {
+        let root = (n as f64).sqrt() as u64;
+        root * root == n
+    }
+
     pub fn is_pentagonal_number(n: u64) -> bool {
         let root = ((24 * n + 1) as f64).sqrt() as u64;
         root * root == 24 * n + 1 && root % 6 == 5
+    }
+
+    pub fn is_hexigaonal_number(n: u64) -> bool {
+        let root = ((8 * n + 1) as f64).sqrt() as u64;
+        root * root == 8 * n + 1 && root % 4 == 3
     }
 
     pub fn sum_diff_pentagonal(pi: u64, pj: u64) -> bool {
@@ -93,11 +103,11 @@ pub mod helpers {
             _ => {
                 let mut n = 1;
                 let mut triangle = triangle_number(n);
-                while triangle < score as usize {
+                while triangle < score as u64 {
                     n += 1;
                     triangle = triangle_number(n);
                 }
-                triangle == score as usize
+                triangle == score as u64
             }
         }
     }

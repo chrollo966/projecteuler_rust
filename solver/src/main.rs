@@ -86,9 +86,59 @@ fn problem_44() {
 }
 
 fn problem_45() {
-    
+    let mut i = 286;
+    let mut j = 166;
+    let mut k = 144;
+
+    loop {
+        let ti = triangle_number(i);
+        let pj = pentagonal_number(j);
+        let hk = hexiagonal_number(k);
+
+        if ti == pj && pj == hk {
+            println!("{}", ti);
+            break;
+        }
+
+        if ti <= pj && ti <= hk {
+            i += 1;
+        } else if pj <= ti && pj <= hk {
+            j += 1;
+        } else {
+            k += 1;
+        }
+    }
+
+    println!("{} {} {}", i, j, k);
+
 }
 
+fn problem_46() {
+    for i in (3..).step_by(2) {
+        if !is_prime(i) {
+            let mut found = false;
+            let quotient = i / 2;
+            let residue = i % 2;
+            for s in (1..=quotient).rev() {
+                if is_perfect_square(s as u64) {
+                    let residue = 2 * (quotient - s) + residue;
+                    if is_prime(residue) {
+                        break;
+                    }
+                }
+
+                if s == 1 {
+                    found = true;
+                }
+            }
+
+            if found {
+                println!("{}", i);
+                break;
+            }
+        }
+    }
+}
 fn main() {
-    problem_44();
+    problem_46();
 }
