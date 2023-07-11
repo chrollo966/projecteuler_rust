@@ -147,6 +147,23 @@ pub mod helpers {
             }
         }
     }
+
+    pub fn pow_mod(x: u128, n: u128) -> u128 {
+        let mut result = 1;
+        let mut base = x;
+        let mut exponent = n;
+        let mod_value = 1_000_000_000_0;
+
+        while exponent > 0 {
+            if exponent % 2 == 1 {
+                result = (result * base) % mod_value;
+            }
+            base = (base * base) % mod_value;
+            exponent /= 2;
+        }
+
+        result
+    }
 }
 
 #[cfg(test)]
@@ -154,7 +171,7 @@ mod tests {
     use super::helpers::*;
 
     #[test]
-    fn test_non_duprecated_prime_factors() {
-        assert_eq!(non_duprecated_prime_factors(644), vec![2, 7, 23]);
+    fn test_pow_mod() {
+        assert_eq!(pow_mod(16, 16), 0);
     }
 }

@@ -158,6 +158,17 @@ fn problem_47() {
         i += 1;
     }
 }
+
+fn problem_48() {
+    let mod_value = 1_000_000_000_0;
+    let mut sum = 0;
+    for i in 1..=1000 {
+        let power = pow_mod(i, i);
+        sum = (sum + power) % mod_value;
+    }
+
+    println!("{}", sum);
+}
 fn main() {
-    problem_47();
+    problem_48();
 }
