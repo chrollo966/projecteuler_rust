@@ -17,6 +17,42 @@ pub mod helpers {
         }
     }
 
+    pub fn prime_factors(n: u64) -> Vec<u64> {
+        let mut factors = Vec::new();
+        let mut n = n;
+        let mut i = 2;
+
+        while n > 1 {
+            if n % i == 0 {
+                factors.push(i);
+                n /= i;
+            } else {
+                i += 1;
+            }
+        }
+
+        factors
+    }
+
+    pub fn non_duprecated_prime_factors(n: u64) -> Vec<u64> {
+        let mut factors = Vec::new();
+        let mut n = n;
+        let mut i = 2;
+
+        while n > 1 {
+            if n % i == 0 {
+                factors.push(i);
+                n /= i;
+                while n % i == 0 {
+                    n /= i;
+                }
+            }
+            i += 1;
+        }
+
+        factors
+    }
+
     pub fn is_substr_divisible(n: u64) -> bool {
         let s = n.to_string();
         let divisors = [2, 3, 5, 7, 11, 13, 17];
@@ -115,16 +151,10 @@ pub mod helpers {
 
 #[cfg(test)]
 mod tests {
-    use permutohedron::Heap;
     use super::helpers::*;
 
     #[test]
-    fn test_problem_43() {
-        let mut sum = 0;
-        let mut digits = (0..=9).collect::<Vec<u64>>();
-        let permutations = Heap::new(&mut digits); 
-        for permutation in permutations {
-            println!("{:?}", permutation);
-        }
+    fn test_non_duprecated_prime_factors() {
+        assert_eq!(non_duprecated_prime_factors(644), vec![2, 7, 23]);
     }
 }

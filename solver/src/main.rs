@@ -139,6 +139,25 @@ fn problem_46() {
         }
     }
 }
+
+fn problem_47() {
+    let mut i = 1;
+    let mut count = 0;
+    loop {
+        if non_duprecated_prime_factors(i).len() == 4 {
+            count += 1;
+        } else {
+            count = 0;
+        }
+
+        if count == 4 {
+            println!("{}", i - 3);
+            break;
+        }
+
+        i += 1;
+    }
+}
 fn main() {
-    problem_46();
+    problem_47();
 }
