@@ -1,11 +1,11 @@
 #[allow(unused_imports, dead_code)]
-
 extern crate permutohedron;
 
-pub mod problem_41 {
+#[allow(dead_code)]
+pub mod helpers {
     use permutohedron::Heap;
 
-    fn is_prime(n: usize) -> bool {
+    pub fn is_prime(n: usize) -> bool {
         match n {
             0 | 1 => false,
             2 => true,
@@ -15,6 +15,30 @@ pub mod problem_41 {
                 !(3..=root).step_by(2).any(|i| n % i == 0)
             }
         }
+    }
+
+    pub fn is_substr_divisible(n: u64) -> bool {
+        let s = n.to_string();
+        let divisors = [2, 3, 5, 7, 11, 13, 17];
+
+        if s.len() == 9 {
+            for i in 0..=6 {
+                let subseq = s[i..=i + 2].parse::<u64>().unwrap();
+                if subseq % divisors[i] != 0 {
+                    return false;
+                }
+
+            }
+        }
+        
+        for i in 1..=7 {
+            let subseq = s[i..=i + 2].parse::<u64>().unwrap();
+            if subseq % divisors[i - 1] != 0 {
+                return false;
+            }
+        }
+
+        true
     }
 
     pub fn pandigital_primes(n: usize) -> Vec<usize> {
@@ -32,12 +56,25 @@ pub mod problem_41 {
         primes
     }
 
+    pub fn triangle_number(n: usize) -> u64 {
+        n as u64 * (n as u64 + 1) / 2
+    }
 
-}
+    pub fn pentagonal_number(n: usize) -> u64 {
+        n as u64 * (3 * n as u64 - 1) / 2
+    }
 
-pub mod problem_42 {
-    pub fn triangle_number(n: usize) -> usize {
-        n * (n + 1) / 2
+    pub fn hexiagonal_number(n: usize) -> u64 {
+        n as u64 * (2 * n as u64 - 1)
+    }
+
+    pub fn is_pentagonal_number(n: u64) -> bool {
+        let root = ((24 * n + 1) as f64).sqrt() as u64;
+        root * root == 24 * n + 1 && root % 6 == 5
+    }
+
+    pub fn sum_diff_pentagonal(pi: u64, pj: u64) -> bool {
+        is_pentagonal_number(pi + pj) && is_pentagonal_number(pi.abs_diff(pj))
     }
 
     pub fn alphabet_to_number(c: char) -> u8 {
@@ -68,13 +105,16 @@ pub mod problem_42 {
 
 #[cfg(test)]
 mod tests {
-    use super::problem_42::*;
+    use permutohedron::Heap;
+    use super::helpers::*;
 
     #[test]
-    fn test_alph2num() {
-        let result = alphabet_to_number('A');
-        let expected = 1;
-
-        assert_eq!(result, expected);
+    fn test_problem_43() {
+        let mut sum = 0;
+        let mut digits = (0..=9).collect::<Vec<u64>>();
+        let permutations = Heap::new(&mut digits); 
+        for permutation in permutations {
+            println!("{:?}", permutation);
+        }
     }
 }
